@@ -116,7 +116,9 @@
   <a href="/">Vienne</a>
   -
   <a href="/">Villefranche sur Saône</a>
-  
+  <?php $bloginfo = get_bloginfo('language'); 
+  echo $bloginfo;
+  echo __("City Name",'wedy-drinkentrepreneurs');?> 
 </p>
 
         </div> 

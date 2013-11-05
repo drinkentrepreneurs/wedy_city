@@ -7,11 +7,13 @@
  *
  **/
 
+load_theme_textdomain('wedy-drinkentrepreneurs');
+
 if ( function_exists('register_sidebar') )
     register_sidebar( array(
-   'name' => __( 'My Custom Widget Area - 1'),
+   'name' => __( 'Widget area','wedy-drinkentrepreneurs'),
    'id' => 'mycustomwidgetarea',
-   'description' => __( 'An optional widget area for your site footer', 'ahah' ),
+   'description' => __( 'An optional widget area where to put the mailing list widget', 'wedy-drinkentrepreneurs' ),
    'before_widget' => '<aside id="%1$s" class="widget %2$s">',
    'after_widget' => "</aside>",
    'before_title' => '<h3 class="widget-title">',
@@ -26,30 +28,30 @@ add_action( 'after_setup_theme', 'wedy_setup' );
 if ( ! function_exists( 'wedy_setup' ) ):
 function wedy_setup() {
 
-   register_nav_menu( 'primary', __( 'mainMenu', 'wedy' ) );
+   register_nav_menu( 'primary', __( 'mainMenu', 'wedy-drinkentrepreneurs' ) );
 }
 endif;
 // setup
 
-function tcx_register_theme_customizer( $wp_customize ) {
-    $wp_customize->add_setting(
-	    'tcx_link_color',
-	    array(
-	        'default'     => '#000000'
-	    )
-    );
 
-    $wp_customize->add_control(
-	    new WP_Customize_Color_Control(
-	        $wp_customize,
-	        'link_color',
-	        array(
-	            'label'      => __( 'Link Color', 'tcx' ),
-	            'section'    => 'colors',
-	            'settings'   => 'tcx_link_color'
-	        )
-	    )
-	);
+function wedy_drinkentrepreneurs_customize_register($wp_customize) {
+	class Example_Customize_Textarea_Control extends WP_Customize_Control {
+	    public $type = 'textarea';
+	 
+	    public function render_content() {
+	        ?>
+	        <label>
+	        <span class="customize-control-title"><?php echo esc_html( $this->label ); ?></span>
+	        <textarea rows="5" style="width:100%;" <?php $this->link(); ?>><?php echo esc_textarea( $this->value() ); ?></textarea>
+	        </label>
+	        <?php
+	    }
+	}
+}
+
+add_action( 'customize_register', 'wedy_drinkentrepreneurs_customize_register' );
+
+function tcx_register_theme_customizer( $wp_customize ) {
 
 	function tcx_customizer_live_preview() {
 	    wp_enqueue_script(
@@ -61,52 +63,6 @@ function tcx_register_theme_customizer( $wp_customize ) {
 		);
 	}
 	add_action( 'customize_preview_init', 'tcx_customizer_live_preview' );
-
-	$wp_customize->add_section(
-	    'tcx_display_options',
-	    array(
-	        'title'     => 'Display Options',
-	        'priority'  => 200
-	    )
-	);
-
-	$wp_customize->add_setting(
-	    'tcx_display_header',
-	    array(
-	        'default'    =>  'true',
-	        'transport'  =>  'postMessage'
-	    )
-	);
-
-	$wp_customize->add_control(
-	    'tcx_display_header',
-	    array(
-	        'section'   => 'tcx_display_options',
-	        'label'     => 'Display Header?',
-	        'type'      => 'checkbox'
-	    )
-	);
-
-	$wp_customize->add_setting(
-	    'tcx_color_scheme',
-	    array(
-	        'default'   => 'normal',
-	        'transport' => 'postMessage'
-	    )
-	);
-	 
-	$wp_customize->add_control(
-	    'tcx_color_scheme',
-	    array(
-	        'section'  => 'tcx_display_options',
-	        'label'    => 'Color Scheme',
-	        'type'     => 'radio',
-	        'choices'  => array(
-	            'normal'    => 'Normal',
-	            'inverse'   => 'Inverse'
-	        )
-	    )
-	);
 
 	// DrinkEntrepreneurs Settings
 
@@ -131,7 +87,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
            $wp_customize,
            'drinkentrepreneurs_logo',
            array(
-               'label'          => __( 'Upload a logo', 'theme_name' ),
+               'label'          => __( 'Upload a logo', 'wedy-drinkentrepreneurs' ),
                'section'        => 'tcx_drinkentrepreneurs_options',
                'settings'       => 'tcx_custom_header_logo',
            )
@@ -149,7 +105,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	$wp_customize->add_control(
        'drinkentrepreneurs_date',
        array(
-           'label'          => __( 'Next event date MM/DD/YYYY HH:MM', 'event_date' ),
+           'label'          => __( 'Next event date MM/DD/YYYY HH:MM', 'wedy-drinkentrepreneurs' ),
            'section'        => 'tcx_drinkentrepreneurs_options',
            'settings'       => 'tcx_drinkentrepreneurs_date',
        )
@@ -168,7 +124,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	    array(
 	        'section'  => 'tcx_drinkentrepreneurs_options',
 	        'settings' => 'tcx_drinkentrepreneurs_venue',
-	        'label'    => 'Venue Name',
+	        'label'    => __('Venue Name','wedy-drinkentrepreneurs'),
 	        'type'     => 'text',
 	    )
 	);
@@ -176,7 +132,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'tcx_drinkentrepreneurs_venue_city',
 	    array(
-	        'default'    =>  "City Name",
+	        'default'    =>  __("City Name",'wedy-drinkentrepreneurs'),
 	        'transport'  =>  'postMessage'
 	    )
 	);
@@ -186,7 +142,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	    array(
 	        'section'  => 'tcx_drinkentrepreneurs_options',
 	        'settings' => 'tcx_drinkentrepreneurs_venue_city',
-	        'label'    => 'City',
+	        'label'    => __('City','wedy-drinkentrepreneurs'),
 	        'type'     => 'text',
 	    )
 	);
@@ -194,7 +150,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'tcx_drinkentrepreneurs_venue_country',
 	    array(
-	        'default'    =>  "Country Name",
+	        'default'    =>  __("Country Name",'wedy-drinkentrepreneurs'),
 	        'transport'  =>  'postMessage'
 	    )
 	);
@@ -204,7 +160,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	    array(
 	        'section'  => 'tcx_drinkentrepreneurs_options',
 	        'settings' => 'tcx_drinkentrepreneurs_venue_country',
-	        'label'    => 'Country',
+	        'label'    => __('Country','wedy-drinkentrepreneurs'),
 	        'type'     => 'text',
 	    )
 	);
@@ -212,7 +168,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'tcx_drinkentrepreneurs_venue_street_number',
 	    array(
-	        'default'    =>  "Street Number",
+	        'default'    =>  __("Street Number",'wedy-drinkentrepreneurs'),
 	        'transport'  =>  'postMessage'
 	    )
 	);
@@ -230,7 +186,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'tcx_drinkentrepreneurs_venue_street_name',
 	    array(
-	        'default'    =>  "Street Name",
+	        'default'    =>  __("Street Name",'wedy-drinkentrepreneurs'),
 	        'transport'  =>  'postMessage'
 	    )
 	);
@@ -240,7 +196,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	    array(
 	        'section'  => 'tcx_drinkentrepreneurs_options',
 	        'settings' => 'tcx_drinkentrepreneurs_venue_street_name',
-	        'label'    => 'Venue street name',
+	        'label'    => __('Venue street name','wedy-drinkentrepreneurs'),
 	        'type'     => 'text',
 	    )
 	);
@@ -259,7 +215,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	    array(
 	        'section'  => 'tcx_drinkentrepreneurs_options',
 	        'settings' => 'tcx_drinkentrepreneurs_venue_lat',
-	        'label'    => 'Venue latitude',
+	        'label'    => __('Venue latitude','wedy-drinkentrepreneurs'),
 	        'type'     => 'text',
 	    )
 	);
@@ -277,9 +233,202 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	    array(
 	        'section'  => 'tcx_drinkentrepreneurs_options',
 	        'settings' => 'tcx_drinkentrepreneurs_venue_long',
-	        'label'    => 'Venue longitude',
+	        'label'    => __('Venue longitude','wedy-drinkentrepreneurs'),
 	        'type'     => 'text',
 	    )
+	);
+
+	// DrinkEntrepreneurs organizing team
+	// Organizer 1
+	$wp_customize->add_section(
+	    'drinkentrepreneurs_team_options',
+	    array(
+	        'title'     => 'DrinkEntrepreneurs Team',
+	        'priority'  => 200
+	    )
+	);
+
+	$wp_customize->add_setting(
+	    'drinkentrepreneurs_team_org1_name',
+	    array(
+	        'default'    =>  "Organizer1",
+	        'transport'  =>  'postMessage',
+	        
+	    )
+	);
+
+	$wp_customize->add_control(
+       'drinkentrepreneurs_team_org1_name_ctrl',
+       array(
+           'label'          => __( "Organizer's name", 'wedy-drinkentrepreneurs' ),
+           'section'        => 'drinkentrepreneurs_team_options',
+           'settings'       => 'drinkentrepreneurs_team_org1_name',
+           'type'     		=> 'text',
+           'priority'	 => 1
+       )
+	);
+
+	$wp_customize->add_setting(
+	    'drinkentrepreneurs_team_org1_description',
+	    array(
+	        'default'    =>  "Organizer 1 description",
+	        'transport'  =>  'postMessage',
+	    )
+	);
+
+	$wp_customize->add_control(
+		new Example_Customize_Textarea_Control(
+			$wp_customize,
+			'drinkentrepreneurs_team_org1_description_ctrl',
+			array(
+			    'label'   => __( "Organizer's description", 'wedy-drinkentrepreneurs' ),
+			    'section' => 'drinkentrepreneurs_team_options',
+			    'settings'   => 'drinkentrepreneurs_team_org1_description',
+			    'priority'	 => 2
+	) ) );
+
+
+	$wp_customize->add_setting(
+	    'drinkentrepreneurs_team_org1_picture',
+	    array(
+	        'default'    =>  'http://placehold.it/200x200',
+	        'transport'  =>  'postMessage',
+	    )
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+           $wp_customize,
+           'drinkentrepreneurs_team_org1_picture_ctrl',
+           array(
+               'label'          => __( "Organizer's picture", 'wedy-drinkentrepreneurs' ),
+               'section'        => 'drinkentrepreneurs_team_options',
+               'settings'       => 'drinkentrepreneurs_team_org1_picture',
+               'priority'	 => 3
+           )
+       )
+	);
+
+	// Organizer 2
+	$wp_customize->add_setting(
+	    'drinkentrepreneurs_team_org2_name',
+	    array(
+	        'default'    =>  "Organizer2",
+	        'transport'  =>  'postMessage',
+
+	    )
+	);
+
+	$wp_customize->add_control(
+       'drinkentrepreneurs_team_org2_name_ctrl',
+       array(
+           'label'          => __( "Organizer's name", 'wedy-drinkentrepreneurs' ),
+           'section'        => 'drinkentrepreneurs_team_options',
+           'settings'       => 'drinkentrepreneurs_team_org2_name',
+           'type'     		=> 'text',
+	       'priority'	 => 4           
+       )
+	);
+
+	$wp_customize->add_setting(
+	    'drinkentrepreneurs_team_org2_description',
+	    array(
+	        'default'    =>  "Organizer 2 description",
+	        'transport'  =>  'postMessage',
+	    )
+	);
+
+	$wp_customize->add_control(
+		new Example_Customize_Textarea_Control(
+			$wp_customize,
+			'drinkentrepreneurs_team_org2_description_ctrl',
+			array(
+			    'label'   => __( "Organizer's description", 'wedy-drinkentrepreneurs' ),
+			    'section' => 'drinkentrepreneurs_team_options',
+			    'settings'   => 'drinkentrepreneurs_team_org2_description',
+			    'priority'	 => 5
+	) ) );
+
+	$wp_customize->add_setting(
+	    'drinkentrepreneurs_team_org2_picture',
+	    array(
+	        'default'    =>  'http://placehold.it/200x200',
+	        'transport'  =>  'postMessage',
+	    )
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+           $wp_customize,
+           'drinkentrepreneurs_team_org2_picture_ctrl',
+           array(
+               'label'          => __( "Organizer's picture", 'wedy-drinkentrepreneurs' ),
+               'section'        => 'drinkentrepreneurs_team_options',
+               'settings'       => 'drinkentrepreneurs_team_org2_picture',
+               'priority'	 => 6
+           )
+       )
+	);
+
+	// Organizer 3
+	$wp_customize->add_setting(
+	    'drinkentrepreneurs_team_org3_name',
+	    array(
+	        'default'    =>  "Organizer3",
+	        'transport'  =>  'postMessage',
+	    )
+	);
+
+	$wp_customize->add_control(
+       'drinkentrepreneurs_team_org3_name_ctrl',
+       array(
+           'label'          => __( "Organizer's name", 'wedy-drinkentrepreneurs' ),
+           'section'        => 'drinkentrepreneurs_team_options',
+           'settings'       => 'drinkentrepreneurs_team_org3_name',
+           'type'     		=> 'text',
+           'priority'	 => 7
+       )
+	);
+
+	$wp_customize->add_setting(
+	    'drinkentrepreneurs_team_org3_description',
+	    array(
+	        'default'    =>  "Organizer 3 description",
+	        'transport'  =>  'postMessage',
+	    )
+	);
+
+	$wp_customize->add_control(
+		new Example_Customize_Textarea_Control(
+			$wp_customize,
+			'drinkentrepreneurs_team_org3_description_ctrl',
+			array(
+			    'label'   => __( "Organizer's description", 'wedy-drinkentrepreneurs' ),
+			    'section' => 'drinkentrepreneurs_team_options',
+			    'settings'   => 'drinkentrepreneurs_team_org3_description',
+			    'priority'	 => 8
+	) ) );
+
+
+	$wp_customize->add_setting(
+	    'drinkentrepreneurs_team_org3_picture',
+	    array(
+	        'default'    =>  'http://placehold.it/200x200',
+	        'transport'  =>  'postMessage',
+	    )
+	);
+
+	$wp_customize->add_control(
+		new WP_Customize_Image_Control(
+           $wp_customize,
+           'drinkentrepreneurs_team_org3_picture_ctrl',
+           array(
+               'label'          => __( "Organizer's picture", 'wedy-drinkentrepreneurs' ),
+               'section'        => 'drinkentrepreneurs_team_options',
+               'settings'       => 'drinkentrepreneurs_team_org3_picture',
+               'priority'	 => 9
+           )
+       )
 	);
 }
 add_action( 'customize_register', 'tcx_register_theme_customizer' );

@@ -24,9 +24,9 @@
         <iframe width="503" height="283" src="//www.youtube.com/embed/aeeYpbGVeFc" frameborder="0" allowfullscreen></iframe>
       </li>
       <li class="actions_facebook">
-        <span style="font-size:16px"><b>Entrepreneurs :</b> Rejoignez-nous </span>
+        <span style="font-size:16px"><b>Entrepreneurs :</b> Rejoignez-nous</span>
         <p style="margin-top:18px;"> Tous les premiers jeudis du mois, <a href="#">DrinkEntrepreneurs</a> vous invite à vous retrouver dans un cadre informel, ouvert et convivial, pour se rencontrer, échanger, et pourquoi pas se filer un coup de pouce. DrinkEntrepreneurs est une association à but non lucratif.</p>
-        <a href="#" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-envelope"></span> Inscrivez vous</a>
+        <a href="#newsletter" class="btn btn-success btn-lg" role="button"><span class="glyphicon glyphicon-envelope"></span> Inscrivez vous</a>
       </li>
   </ul>
       
@@ -63,15 +63,46 @@
   <div style="margin-top:20px;">
     <?php print get_page_by_title('FAQ')->post_content;?>
   </div>
-
+  
   <div style="margin-top:20px;">
-    <?php print get_page_by_title('TEAM')->post_content;?>
+    <div class="row">
+      <h1 style="text-align: center"><?php echo __('Team in','wedy-drinkentrepreneurs');?> <?php echo get_theme_mod('tcx_drinkentrepreneurs_venue_city');?></h1>
+      <?php
+      //Create an array of organizers
+      //TODO this logic should be somewhere else and less dirty
+        $organizers = array();
+        for ($i = 1; $i <= 3; $i++) {
+          $img = get_theme_mod("drinkentrepreneurs_team_org".$i."_picture");
+          $name = get_theme_mod("drinkentrepreneurs_team_org".$i."_name");
+          $description = get_theme_mod("drinkentrepreneurs_team_org".$i."_description");
+          if(!preg_match("/^Organizer/", $name)) {
+            $orga = array(
+              "name"=>$name,
+              "img"=>$img,
+              "description"=>$description
+            );
+            array_push($organizers, $orga);
+          }
+        }
+        ?> 
+        <?php
+          $class = "col-md-".(12/count($organizers));
+          foreach ($organizers as &$orga) {?>
+              <div style="text-align: center" class="<?php echo $class; ?>">
+                <img class="img-circle" alt="<?php echo $orga['name']; ?>" src="<?php echo $orga['img']; ?>" width="200" height="200" />
+                <h4><?php echo $orga['name']; ?> </h4>
+                <p style="text-align: center"><?php echo $orga['description']; ?></p>
+              </div>
+        <?php 
+          }
+        ?>
+    </div>
   </div>
 
   <div id="newsletter" style="text-align: center;">
     <?php 
        // Custom widget Area Start
-       if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('My Custom Widget Area - 1') ) : ?>
+       if ( !function_exists('dynamic_sidebar') || !dynamic_sidebar('Widget area') ) : ?>
       <?php endif;
       // Custom widget Area End
       ?>

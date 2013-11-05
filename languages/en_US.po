@@ -1,0 +1,87 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Drinkentrepreneurs\n"
+"POT-Creation-Date: 2013-11-04 21:57+0100\n"
+"PO-Revision-Date: 2013-11-04 22:15+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../content.php:16
+#, php-format
+msgid "Permalink to %s"
+msgstr ""
+
+#: ../content.php:25
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr ""
+
+#: ../content.php:26
+msgid "Pages:"
+msgstr ""
+
+#: ../functions.php:14
+msgid "Widget area"
+msgstr ""
+
+#: ../functions.php:16
+msgid "An optional widget area where to put the mailing list widget"
+msgstr ""
+
+#: ../functions.php:31
+msgid "mainMenu"
+msgstr ""
+
+#: ../functions.php:72
+msgid "Upload a logo"
+msgstr ""
+
+#: ../functions.php:90
+msgid "Next event date MM/DD/YYYY HH:MM"
+msgstr ""
+
+#: ../functions.php:109
+msgid "Venue Name"
+msgstr ""
+
+#: ../functions.php:117
+msgid "City Name"
+msgstr ""
+
+#: ../functions.php:127
+msgid "City"
+msgstr ""
+
+#: ../functions.php:135
+msgid "Country Name"
+msgstr ""
+
+#: ../functions.php:145
+msgid "Country"
+msgstr ""
+
+#: ../functions.php:153
+msgid "Street Number"
+msgstr ""
+
+#: ../functions.php:171
+msgid "Street Name"
+msgstr ""
+
+#: ../functions.php:181
+msgid "Venue street name"
+msgstr ""
+
+#: ../functions.php:200
+msgid "Venue latitude"
+msgstr ""
+
+#: ../functions.php:218
+msgid "Venue longitude"
+msgstr ""
