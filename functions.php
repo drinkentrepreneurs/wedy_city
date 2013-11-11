@@ -77,7 +77,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'tcx_custom_header_logo',
 	    array(
-	        'default'    =>  get_bloginfo('template_directory').'/images/logo_aperoentrepreneurs_fin.jpg',
+	        'default'    =>  get_bloginfo('template_directory').'/images/logo_aperoentrepreneurs_fin.png',
 	        'transport'  =>  'postMessage'
 	    )
 	);
@@ -251,7 +251,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'drinkentrepreneurs_team_org1_name',
 	    array(
-	        'default'    =>  "Organizer1",
+	        'default'    =>  "You ?",
 	        'transport'  =>  'postMessage',
 	        
 	    )
@@ -271,7 +271,7 @@ function tcx_register_theme_customizer( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'drinkentrepreneurs_team_org1_description',
 	    array(
-	        'default'    =>  "Organizer 1 description",
+	        'default'    =>  "Organize a DrinkEntrepreneurs event in your city and help the local community of entrepreneurs.",
 	        'transport'  =>  'postMessage',
 	    )
 	);

@@ -77,30 +77,24 @@
 <body <?php body_class(); ?>
   <body> 
     <div id="wrap"> 
-      <div id="header"> 
+      <div id="header" style="display:block;"> 
         <h1 style="display:none;">
           <?php bloginfo( 'title' ); ?>
         </h1>
 
         <div id="header_logo" style="margin-left:298px;"> 
           <a href="/">
-            <!-- <img src="http://fr.drinkentrepreneurs.org/wp-content/uploads/2013/07/logo_aperoentrepreneurs_fin.png" alt="logo"/> -->
-           <?php if(get_theme_mod( 'tcx_custom_header_logo' )){?>
+            <?php if(get_theme_mod( 'tcx_custom_header_logo' )){?>
              <img id="header_logo_img" src="<?php echo get_theme_mod( 'tcx_custom_header_logo' );?>" alt="logo" /> 
             <?php }else{?>
-              <img id="header_logo_img" src="./images/logo_aperoentrepreneurs_fin.jpg" alt="logo" /> 
-              <?php }?>
+              <img id="header_logo_img" src="./images/logo_aperoentrepreneurs_fin.png" alt="logo" /> 
+           <?php }?>
           </a> 
         </div> 
         
         <div id="header_blurb"></div> 
         
-        <div id="header_right">
-        
-   
-
-
-        </div> 
+        <div id="header_right"></div> 
   
          <div id="header_menu"> 
           <?php wp_nav_menu( array( 'items_wrap'       => '<ul id="%1$s" class="%2$s">%3$s</ul>',

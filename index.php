@@ -13,7 +13,7 @@
 ?>
 <?php get_header(); ?>
   <div id="tagline_overlay">
-    <img alt="" src="/wp-content/themes/wedy/images/bullehome2.png"/>
+    <img alt="" src="<?php echo get_bloginfo('template_directory');?>/images/<?php echo get_bloginfo('language');?>/bullehome.png"/>
   </div><!-- #tagline_overlay -->
   <?php if ( function_exists( 'meteor_slideshow' ) ) { meteor_slideshow(); } ?>
  
@@ -46,8 +46,8 @@
         $event_venue = "NOT SET";
       }
       
-      if(get_theme_mod( 'tcx_drinkentrepreneurs_venue_addr' )){
-        $event_address = get_theme_mod( 'tcx_drinkentrepreneurs_venue_addr' );
+      if(get_theme_mod( 'tcx_drinkentrepreneurs_venue_street_number' ) && get_theme_mod('tcx_drinkentrepreneurs_venue_street_name') && get_theme_mod('tcx_drinkentrepreneurs_venue_city') ){
+        $event_address = get_theme_mod( 'tcx_drinkentrepreneurs_venue_street_number' ).', '.get_theme_mod('tcx_drinkentrepreneurs_venue_street_name').', '.get_theme_mod('tcx_drinkentrepreneurs_venue_city') ;
       }else{
         $event_address = "NOT SET";
       }
